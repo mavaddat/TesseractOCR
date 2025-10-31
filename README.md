@@ -129,7 +129,8 @@ Tesseract uses the Leptonica library to read images with one of these formats:
 - WebP (including animated WebP) - requires libwebp
 - BMP - no library required*
 = PNM - no library required*
-* Except Leptonica
+
+\* Except Leptonica
 
 **I have dropped support for the Windows.Drawing.Image namespace since this only works good on Windows and not on other systems. You should be fine with Leptonica**
 
