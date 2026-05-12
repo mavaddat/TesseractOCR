@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using TesseractOCR.InteropDotNet;
 
 namespace TesseractOCR.Interop
 {
@@ -30,7 +31,7 @@ namespace TesseractOCR.Interop
             var dllDirectory =
                 Path.Combine(
                     Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? string.Empty,
-                    Environment.Is64BitProcess ? "x64" : "x86");
+                    SystemManager.GetPlatformName());
 
             var path = Environment.GetEnvironmentVariable("path") ?? string.Empty;
 

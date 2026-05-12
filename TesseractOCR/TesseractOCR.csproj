@@ -30,9 +30,14 @@ which support the legacy engine, for example those from the tessdata repository.
 	<ItemGroup>
 		<Folder Include="x86\" />
 		<Folder Include="x64\" />
+		<Folder Include="arm64\" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="arm64/**/*.*" copyToOutput="true">
+			<IncludeInPackage>true</IncludeInPackage>
+			<PackagePath>arm64</PackagePath>
+		</Content>
 		<Content Include="x64/**/*.*" copyToOutput="true">
 			<IncludeInPackage>true</IncludeInPackage>
 			<PackagePath>x64;lib</PackagePath>
@@ -106,6 +111,15 @@ which support the legacy engine, for example those from the tessdata repository.
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Update="x86\tesseract55.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="arm64\leptonica-1.87.0.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="arm64\tesseract.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="arm64\tesseract55.dll">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>

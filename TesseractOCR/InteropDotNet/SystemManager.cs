@@ -47,7 +47,17 @@ namespace TesseractOCR.InteropDotNet
         #region GetPlatformName
         internal static string GetPlatformName()
         {
-            return IntPtr.Size == sizeof(int) ? "x86" : "x64";
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.Arm64:
+                    return "arm64";
+                case Architecture.X64:
+                    return "x64";
+                case Architecture.X86:
+                    return "x86";
+                default:
+                    return IntPtr.Size == sizeof(int) ? "x86" : "x64";
+            }
         }
         #endregion
 

@@ -235,14 +235,40 @@ namespace TesseractOCR.InteropDotNet
         #region InternalLoadLibrary
         private IntPtr InternalLoadLibrary(string baseDirectory, string platformName, string fileName)
         {
-            var fullPath = Path.Combine(baseDirectory, Path.Combine(platformName, fileName));
+            var platformDirectory = Path.Combine(baseDirectory, platformName);
+            var fullPath = Path.Combine(platformDirectory, fileName);
 
             Logger.LogDebug($"Trying to load file from '{fullPath}'");
 
-            return
-                File.Exists(fullPath) ? 
-                    _logic.LoadLibrary(fullPath) : 
-                    IntPtr.Zero;
+            var libraryPath = ResolveLibraryPath(platformDirectory, fileName);
+
+            return libraryPath != null
+                ? _logic.LoadLibrary(libraryPath)
+                : IntPtr.Zero;
+        }
+        #endregion
+
+        #region ResolveLibraryPath
+        private static string ResolveLibraryPath(string platformDirectory, string fileName)
+        {
+            var fullPath = Path.Combine(platformDirectory, fileName);
+            if (File.Exists(fullPath))
+                return fullPath;
+
+            if (SystemManager.GetOperatingSystem() != OperatingSystem.Windows ||
+                !Directory.Exists(platformDirectory) ||
+                !fileName.StartsWith("leptonica-", StringComparison.OrdinalIgnoreCase) ||
+                !fileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            var candidates = Directory.GetFiles(platformDirectory, "leptonica-*.dll");
+            if (candidates.Length == 0)
+                return null;
+
+            Array.Sort(candidates, StringComparer.OrdinalIgnoreCase);
+            var libraryPath = candidates[candidates.Length - 1];
+            Logger.LogInformation($"Using native library '{Path.GetFileName(libraryPath)}' in place of '{fileName}'.");
+            return libraryPath;
         }
         #endregion
 

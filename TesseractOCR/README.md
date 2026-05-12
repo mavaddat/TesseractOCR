@@ -14,10 +14,13 @@ You can get them at https://github.com/tesseract-ocr/tessdata or https://github.
 
 ## Microsoft Visual C++ runtimes
 
-The DLL's Tesseract53.dll (and exe) and leptonica-1.85.0.dll are compiled with Visual Studio 2022 you need these C++ runtimes for it on your computer
+The Windows native DLLs are compiled with Visual Studio 2022, so you need these C++ runtimes on your computer:
 
 - X86: https://aka.ms/vs/17/release/vc_redist.x86.exe
 - X64: https://aka.ms/vs/17/release/vc_redist.x64.exe
+- ARM64: https://aka.ms/vs/17/release/vc_redist.arm64.exe
+
+Windows native binaries are included for x86, x64 and arm64.
 
 ## OCR a page
 
