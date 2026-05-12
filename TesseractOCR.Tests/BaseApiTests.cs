@@ -9,12 +9,11 @@ namespace Tesseract.Tests
     public class BaseApiTests : TesseractTestBase
     {
         [TestMethod]
-        [Ignore("Hardcoded 5.4.1 assertion no longer matches the bundled 5.5.x. Update the prefix once the version pin is intentionally bumped.")]
-        public void GetVersion_Is540()
+        public void GetVersion_Is552()
         {
             using var engine = CreateEngine();
             var version = engine.Version;
-            Assert.IsTrue(version.StartsWith("5.4.1"));
+            Assert.IsTrue(version.StartsWith("5.5.2"));
         }
 
         [TestMethod]
